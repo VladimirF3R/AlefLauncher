@@ -32,9 +32,9 @@
             groupBoxState = new GroupBox();
             stateTextBox = new RichTextBox();
             groupBoxFooter = new GroupBox();
-            buttonSettings = new Button();
+            saveSettingsButton = new Button();
+            loadSettingsButton = new Button();
             groupBoxMain = new GroupBox();
-            buttonSave = new Button();
             labelProfileDescription = new Label();
             labelAppDescription = new Label();
             buttonRun = new Button();
@@ -74,7 +74,8 @@
             // 
             // groupBoxFooter
             // 
-            groupBoxFooter.Controls.Add(buttonSettings);
+            groupBoxFooter.Controls.Add(saveSettingsButton);
+            groupBoxFooter.Controls.Add(loadSettingsButton);
             groupBoxFooter.Dock = DockStyle.Top;
             groupBoxFooter.Location = new Point(0, 0);
             groupBoxFooter.Name = "groupBoxFooter";
@@ -82,21 +83,30 @@
             groupBoxFooter.TabIndex = 3;
             groupBoxFooter.TabStop = false;
             // 
-            // buttonSettings
+            // saveSettingsButton
             // 
-            buttonSettings.Enabled = false;
-            buttonSettings.ImageAlign = ContentAlignment.MiddleRight;
-            buttonSettings.Location = new Point(845, 26);
-            buttonSettings.Name = "buttonSettings";
-            buttonSettings.Size = new Size(149, 28);
-            buttonSettings.TabIndex = 1;
-            buttonSettings.Text = "Настройки ...";
-            buttonSettings.UseVisualStyleBackColor = true;
-            buttonSettings.Click += buttonSettings_Click;
+            saveSettingsButton.ImageAlign = ContentAlignment.MiddleRight;
+            saveSettingsButton.Location = new Point(817, 26);
+            saveSettingsButton.Name = "saveSettingsButton";
+            saveSettingsButton.Size = new Size(177, 28);
+            saveSettingsButton.TabIndex = 2;
+            saveSettingsButton.Text = "Сохранить настройки ...";
+            saveSettingsButton.UseVisualStyleBackColor = true;
+            saveSettingsButton.Click += saveSettingsButton_Click;
+            // 
+            // loadSettingsButton
+            // 
+            loadSettingsButton.ImageAlign = ContentAlignment.MiddleRight;
+            loadSettingsButton.Location = new Point(632, 26);
+            loadSettingsButton.Name = "loadSettingsButton";
+            loadSettingsButton.Size = new Size(168, 28);
+            loadSettingsButton.TabIndex = 1;
+            loadSettingsButton.Text = "Загрузить настройки ";
+            loadSettingsButton.UseVisualStyleBackColor = true;
+            loadSettingsButton.Click += loadSettingsButton_Click;
             // 
             // groupBoxMain
             // 
-            groupBoxMain.Controls.Add(buttonSave);
             groupBoxMain.Controls.Add(labelProfileDescription);
             groupBoxMain.Controls.Add(labelAppDescription);
             groupBoxMain.Controls.Add(buttonRun);
@@ -110,16 +120,6 @@
             groupBoxMain.Size = new Size(1012, 182);
             groupBoxMain.TabIndex = 4;
             groupBoxMain.TabStop = false;
-            // 
-            // buttonSave
-            // 
-            buttonSave.Location = new Point(845, 76);
-            buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(149, 29);
-            buttonSave.TabIndex = 12;
-            buttonSave.Text = "Сохранить";
-            buttonSave.UseVisualStyleBackColor = true;
-            buttonSave.Click += button1_Click;
             // 
             // labelProfileDescription
             // 
@@ -206,7 +206,7 @@
 
         private GroupBox groupBoxState;
         private GroupBox groupBoxFooter;
-        private Button buttonSettings;
+        private Button loadSettingsButton;
         private GroupBox groupBoxMain;
         private Button buttonRun;
         private Label label2;
@@ -217,6 +217,6 @@
         private BindingSource bindingSourceApp;
         private Label labelProfileDescription;
         private Label labelAppDescription;
-        private Button buttonSave;
+        private Button saveSettingsButton;
     }
 }

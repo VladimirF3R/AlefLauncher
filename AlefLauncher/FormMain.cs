@@ -10,23 +10,23 @@ namespace AlefLauncher
         public formMain()
         {
             InitializeComponent();
-            currentApp = new App();
-            currentProfile = currentApp.ProfileList[0];
             LoadApp();
         }
 
-        private BindingList<App> apps = new BindingList<App>();
+        private List<App> appList = new List<App>();
         private App currentApp;
         private Profile currentProfile;
 
         private void LoadApp()
         {
-            currentApp = App.LoadFromFile(Services.APP_FILENAME);
+            appList = App.LoadFromFile(Services.APP_FILENAME);
+            currentApp = appList[0];
+            currentProfile = currentApp.ProfileList[0];
         }
 
         private void saveAppSettings()
         {
-            currentApp.SaveToFile(Services.APP_FILENAME);
+            App.SaveToFile(Services.APP_FILENAME, appList);
         }
 
 
@@ -37,7 +37,7 @@ namespace AlefLauncher
 
         private void InitUI()
         {
-            comboBoxApp.DataSource = apps;
+            comboBoxApp.DataSource = appList;
             comboBoxApp.DisplayMember = "Name";
             comboBoxApp.ValueMember = "Name";
             comboBoxApp.SelectedIndex = 0;
@@ -55,7 +55,7 @@ namespace AlefLauncher
 
         private void setCurrentApp()
         {
-            currentApp = apps[comboBoxApp.SelectedIndex];
+            currentApp = appList[comboBoxApp.SelectedIndex];
             labelAppDescription.Text = currentApp.Description;
         }
 
@@ -77,29 +77,33 @@ namespace AlefLauncher
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            var state = $"Запускаем приложение{currentProfile.Name}...\n";
-            stateTextBox.AppendText(state);
-            Application.DoEvents();
-            if (Services.RunApp(currentProfile)) state = $"Приложение {currentProfile.Name} успешно запущено.\n"; else state = $"Ошибка запуска приложения {currentProfile.Name}.\n";
-            stateTextBox.AppendText(state);
-            state = "Готов к работе.\n";
-            stateTextBox.AppendText(state);
+            AddToLog($"Запускаем приложение{currentProfile.Name}...");
+            if (Services.RunApp(currentProfile)) AddToLog($"Приложение {currentProfile.Name} успешно запущено."); 
+            else AddToLog($"Ошибка запуска приложения {currentProfile.Name}.");
         }
-
-        private void buttonSettings_Click(object sender, EventArgs e)
-        {
-            //var settings = new Settings();
-            //settings.Load();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            saveAppSettings();
-        }
-
         private void comboBoxProfile_SelectedIndexChanged(object sender, EventArgs e)
         {
             setCurrentProfile();
+        }
+
+        private void saveSettingsButton_Click(object sender, EventArgs e)
+        {
+            AddToLog($"Сохранение настроек в файл {Services.APP_FILENAME}");
+            App.SaveToFile(Services.APP_FILENAME, appList);
+            AddToLog("Сохранение завершено");
+        }
+
+        private void loadSettingsButton_Click(object sender, EventArgs e)
+        {
+            AddToLog($"Загрузка настроек из файла {Services.APP_FILENAME}");
+            appList = App.LoadFromFile(Services.APP_FILENAME);
+            AddToLog("Загрузка завершена");
+        }
+
+        private void AddToLog(string message, bool saveToFile = false)
+        {
+            stateTextBox.AppendText($"{message}\n");
+            Application.DoEvents();
         }
     }
 }

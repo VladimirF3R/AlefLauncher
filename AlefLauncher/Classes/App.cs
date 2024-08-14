@@ -27,24 +27,23 @@ namespace AlefLauncher.Classes
             Description = description;
             ProfileList = profileList ?? new List<Profile>();
         }
-        public static App LoadFromFile(string fileName)
+        public static List<App> LoadFromFile(string fileName)
         {
-            App? app = null;
+            List<App>? appList = null;
             try
             {
                 var jsonString = File.ReadAllText("applist.json");
-                app = JsonSerializer.Deserialize<App>(jsonString);
+                appList = JsonSerializer.Deserialize<List<App>>(jsonString);
             }
             catch
             {
                 // Error during loading/deserialization
             }
-            return app ?? new App();
+            return appList ?? new List<App>();
         }
-
-        public void SaveToFile(string fileName)
+        public static void SaveToFile(string fileName, List<App> appList)
         {
-            var jsonString = JsonSerializer.Serialize(this);
+            var jsonString = JsonSerializer.Serialize(appList);
             File.WriteAllText(fileName, jsonString);
         }
     }

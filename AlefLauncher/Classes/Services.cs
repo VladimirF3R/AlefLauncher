@@ -29,10 +29,5 @@ namespace AlefLauncher.Classes
 
         }
 
-        public static void AddToLog(string message)
-        {
-            
-        }
-
     }
 }
