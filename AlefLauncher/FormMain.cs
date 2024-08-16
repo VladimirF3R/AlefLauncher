@@ -51,6 +51,8 @@ namespace AlefLauncher
 
             setCurrentProfile();
 
+            AddToLog("Приложение стартовало.");
+
         }
 
         private void setCurrentApp()
@@ -102,7 +104,9 @@ namespace AlefLauncher
 
         private void AddToLog(string message, bool saveToFile = false)
         {
-            stateTextBox.AppendText($"{message}\n");
+            var line = $"{DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss ")}{message}";
+            stateTextBox.AppendText($"{line}\n");
+            Services.SaveLog(line);
             Application.DoEvents();
         }
     }

@@ -70,7 +70,7 @@
             stateTextBox.ReadOnly = true;
             stateTextBox.Size = new Size(1006, 154);
             stateTextBox.TabIndex = 0;
-            stateTextBox.Text = "Готов к работе.\n";
+            stateTextBox.Text = "";
             // 
             // groupBoxFooter
             // 

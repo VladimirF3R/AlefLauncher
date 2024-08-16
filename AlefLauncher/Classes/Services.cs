@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AlefLauncher.Classes.Helpers;
 
@@ -11,6 +13,7 @@ namespace AlefLauncher.Classes
     {
         public const string APP_NAME = "Alefmain.exe";
         public const string APP_FILENAME = "applist.json";
+        public const string LOG_FILENAME = "alefLauncher.log";
         public static Boolean RunApp(Profile profile)
         {
             /// TODO add async
@@ -29,5 +32,12 @@ namespace AlefLauncher.Classes
 
         }
 
+        public static void SaveLog(string text)
+        {
+            using (StreamWriter writer = new StreamWriter(LOG_FILENAME, true))
+            {
+                writer.WriteLineAsync(text);
+            }
+        }
     }
 }
